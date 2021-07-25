@@ -11,7 +11,7 @@
 </head>
 <body>
 
-	<h1>전화번호 리스트</h1>
+	<h1>전화번호 리스트${pageContext.request.contextPath}</h1>
 	<p>입력한 정보 내역입니다.</p>
 
 
@@ -31,17 +31,17 @@
 			</tr>
 			<tr>
 				<td>
-					<a href="/phonebook3/updateForm?id=${personVo.personId }">수정</a>
+					<a href="${pageContext.request.contextPath}/updateForm?id=${personVo.personId }">수정</a>
 				</td>
 				<td>
-					<a href="/phonebook3/delete?id=${personVo.personId }">삭제</a>
+					<a href="${pageContext.request.contextPath}/delete?id=${personVo.personId }">삭제</a>
 				</td>
 			</tr>
 		</table>
 		<br>
 	</c:forEach>
 
-	<a href="/phonebook3/writeForm">[추가 등록하기]</a>
+	<a href="${pageContext.request.contextPath}/writeForm">[추가 등록하기]</a>
 
 
 </body>

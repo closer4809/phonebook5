@@ -2,6 +2,7 @@ package com.javaex.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,13 +17,28 @@ import com.javaex.vo.PersonVo;
 
 public class PhoneController {
 
+	//필드
+	@Autowired
+	PhoneDao phoneDao;
+	//셍성자
+	
+	//메소드 gs
+	
+	//메소드 일반
+	
 	// 리스트
+
+	
+	
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public String list(Model model) {
 		System.out.println("[PhoneController.list]");
 
 		// dao사용
-		PhoneDao phoneDao = new PhoneDao();
+		//오토와이어로 해결, 폰다오 @레파지토리확인!!
+		//PhoneDao phoneDao = new PhoneDao();
+		
+		//dao의 메소드로 데이터 가져오기
 		List<PersonVo> personList = phoneDao.getPersonList();
 		System.out.println(personList);
 
@@ -50,11 +66,11 @@ public class PhoneController {
 		System.out.println(personvo);
 
 		// dao사용할것
-		PhoneDao phonedao = new PhoneDao();
+		//PhoneDao phoneDao = new PhoneDao();
 
-		// dao의 personinsert() 이용해서 데이터 저장
-		phonedao.personInsert(personvo);
-
+		 //Dao의 personInsert() 이용해서 데이터 저장
+	      int count = phoneDao.personInsert(personvo);
+	   
 		// view --> 리다이렉트 (화면이 필요없다, 일만 해주면댐)
 		return "redirect:/list";
 
@@ -66,8 +82,8 @@ public class PhoneController {
 		System.out.println("[PhoneController.Delete]");
 
 		// Dao 생성(메소드이용)
-		PhoneDao pDao = new PhoneDao();
-		pDao.personDelete(pId);
+		//PhoneDao pDao = new PhoneDao();
+		//phoneDao.personDelete(pId);
 
 		// view -->리다이렉트
 
@@ -80,10 +96,10 @@ public class PhoneController {
 	public String updateForm(Model model, @RequestParam("id") int personId) {
 		System.out.println("[PhoneController.updateForm]");
 
-		PhoneDao phoneDao = new PhoneDao();
-		PersonVo personvo = phoneDao.getPerson(personId);
+		//PhoneDao phoneDao = new PhoneDao();
+		//PersonVo personvo = phoneDao.getPerson(personId);
 
-		model.addAttribute("personvo", personvo);
+		//model.addAttribute("personvo", personvo);
 		
 		return "/WEB-INF/views/updateForm.jsp";
 
@@ -91,7 +107,6 @@ public class PhoneController {
 	
 	
 	// 수정
-
 	@RequestMapping(value = "/update", method = { RequestMethod.GET, RequestMethod.POST })
 	public String update(@ModelAttribute PersonVo personvo) {
 		System.out.println("[PhoneController.update]");
@@ -99,11 +114,11 @@ public class PhoneController {
 		// @ModelAttribute --> 기본생성자 + setter
 		System.out.println(personvo);
 
-		// dao사용할것
-		PhoneDao phonedao = new PhoneDao();
+		// dao사용할것 --> 오토와이어 사용
+		//PhoneDao phonedao = new PhoneDao();
 
 		// dao의 personinsert() 이용해서 데이터 저장
-		phonedao.personUpdate(personvo);
+		//phoneDao.personUpdate(personvo);
 
 		// view --> 리다이렉트 (화면이 필요없다, 일만 해주면댐)
 		
@@ -112,59 +127,6 @@ public class PhoneController {
 	}
 
 	
-	/*
-	 * // 쓰기 //파라미터가 있을때도 있고 없을때도 있을때
-	 * 
-	 * @RequestMapping(value = "/write", method = { RequestMethod.GET,
-	 * RequestMethod.POST }) public String write(@RequestParam("name") String name,
-	 * 
-	 * @RequestParam("hp") String hp,
-	 * 
-	 * @RequestParam(value = "company", required =false, defaultValue="-1") String
-	 * company) { System.out.println("[PhoneController.write]");
-	 * 
-	 * 
-	 * PersonVo personVo = new PersonVo(name, hp, company);
-	 * System.out.println(personVo);
-	 * 
-	 * 
-	 * return "";
-	 * 
-	 * 
-	 * }
-	 * 
-	 * 
-	 * 
-	 * @RequestMapping(value = "/write", method = { RequestMethod.GET,
-	 * RequestMethod.POST }) public String write(@RequestParam("name") String name,
-	 * 
-	 * @RequestParam("hp") String hp,
-	 * 
-	 * @RequestParam("company") String company) {
-	 * System.out.println("[PhoneController.write]"); System.out.println(name);
-	 * System.out.println(hp); System.out.println(company);
-	 * 
-	 * PersonVo personVo = new PersonVo(name, hp, company);
-	 * System.out.println(personVo);
-	 * 
-	 * 
-	 * return "";
-	 * 
-	 * 
-	 * }
-	 * 
-	 * //쓰기
-	 * 
-	 * @RequestMapping(value="/board/read/{no}", method= {RequestMethod.GET,
-	 * RequestMethod.POST}) public String read(@PathVariable("no") int boardNo) {
-	 * System.out.println("PathVariable [read]");
-	 * 
-	 * 
-	 * 
-	 * 
-	 * System.out.println(boardNo); return""; }
-	 * 
-	 */
 
 	@RequestMapping(value = "/test")
 	public String test() {
